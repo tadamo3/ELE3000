@@ -1,0 +1,114 @@
+<InfoWindow>:
+    name: "info"
+    tempo: tempo
+    toleranceTempo: toleranceTempo
+    filename: filename
+
+    FloatLayout:
+        # Design of space to write desired tempo
+        Label:
+            text:"Tempo (bpm): "
+            font_size: 5*root.width / 200
+            pos_hint: {"x":0.23, "top":0.925}
+            size_hint: 0.35, 0.15
+
+        TextInput:
+            id: tempo
+            text: '60'
+            font_size: root.width**2 / 13**4
+            multiline: False
+            pos_hint: {"x": 0.55 , "top":0.9}
+            size_hint: 0.4, 0.1
+
+        # Design of space to write tolerance of the program to a change of tempo
+        Label:
+            text:"Tempo tolerance (%): "
+            font_size: 5*root.width / 200
+            pos_hint: {"x":0.19, "top":0.725}
+            size_hint: 0.35, 0.15
+
+        TextInput:
+            id: toleranceTempo
+            text: '25'
+            font_size: root.width**2 / 13**4
+            multiline: False
+            pos_hint: {"x": 0.55, "top":0.7}
+            size_hint: 0.4, 0.1
+
+        # Design of space to write the filename that will be produced by program
+        Label:
+            text:"Name of file to be created (.pdf): "
+            font_size: 5*root.width / 200
+            pos_hint: {"x":0.13, "top":0.525}
+            size_hint: 0.35, 0.15
+
+        TextInput:
+            id: filename
+            text: 'Essai'
+            font_size: root.width**2 / 13**4
+            multiline: False
+            pos_hint: {"x": 0.55, "y":0.4}
+            size_hint: 0.4, 0.1
+
+        # Design of the submission button
+        Button:
+            pos_hint:{"x":0.2,"y":0.05}
+            size_hint: 0.6, 0.2
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Submit"
+            on_release:
+                root.manager.transition.direction = "up"
+                root.submitBtn()
+
+
+<RecordWindow>:
+    tempoInfo : tempoInfo
+    fileName: fileName
+    toleranceInfo : toleranceInfo
+    changeInfo : changeInfo
+    startRecording : startRecording
+    generate : generate
+
+    FloatLayout:
+        Label:
+            id: fileName
+            pos_hint:{"x": 0.6, "top":0.25}
+            size_hint:0.5, 0.2
+            text: "File name: "
+
+        Label:
+            id: tempoInfo
+            pos_hint:{"x": 0.6, "top":0.225}
+            size_hint:0.5, 0.2
+            text: "Tempo: "
+
+        Label:
+            id: toleranceInfo
+            pos_hint:{"x": 0.6, "top":0.2}
+            size_hint:0.5, 0.2
+            text: "Tolerance : "
+
+        Button:
+            id: changeInfo
+            pos_hint:{"x":0.1, "y": 0.2}
+            size_hint:0.3,0.2
+            text: 'Change Info'
+            on_release:
+                app.root.current = "info"
+                root.manager.transition.direction = "down"
+
+        Button:
+            id: startRecording
+            pos_hint:{"x":0.2, "y": 0.6}
+            size_hint:0.6,0.2
+            text: 'Start recording'
+            on_release:
+                root.startRecord()
+
+        Button:
+            id: generate
+            pos_hint:{"x":0.6, "y": 0.2}
+            size_hint:0.3,0.2
+            text: 'Generate partition'
+            on_release:
+                root.generatePartition()
